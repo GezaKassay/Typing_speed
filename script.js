@@ -7,14 +7,16 @@ const words = [["color gift eat"], ["color gift eat pain popular average possibl
     " dead hotdog habitat courtship"]]
 
 let displayWords = words[0];
+let displayWordsGreen = words[0];
 
 function displaysWords() {
     document.getElementById("wordsToDisplay").innerHTML = displayWords;
+    document.getElementById("greenWordsToDisplay").innerHTML = displayWordsGreen;
 }
 displaysWords();
 
 function setCharAt(str, index, chr) {
-    if (index > str.length - 1) return str;
+    if (index > str.length - 1) return str;    
     return str.substring(0, index) + chr + str.substring(index + 1);
 }
 
@@ -23,27 +25,23 @@ let letterPos = 0;
 
 function checkDisplayedtoTyped() {
     let word = document.getElementById("typeWords").value;        
-    for (let i = 0; i < 1; ++i) {
-        for (let j = 0; j < displayWords.length; ++j) {                                   
-            for (let k = checkPos; k < words[i][j].length; ++k) {
-                if (word[letterPos] === words[i][j][k]) {              
-                    alert("match"); 
-                 
-                  
-                // displayWords = setCharAt(displayWords, k, "_");
-                // displaysWords();                  
-                } else if (words[i][j][k] != " ") {                
-                    alert("noMatch");             
-                }
-                ++letterPos;
-                if (words[i][j][k] === " ") {
-                    checkPos = k + 1;
-                    letterPos = 1;   
-                    k = words[i][j].length;                    
-                }
+    for (let i = 0; i < displayWords.length; ++i) {                                   
+        for (let j = checkPos; j < displayWords[i].length; ++j) {
+            if (word[letterPos] === displayWords[i][j]) {              
+                //alert("match");              
+                displayWords[i] = setCharAt(displayWords[i], j, displayWordsGreen[i][j]);
+                displaysWords();                
+            } else if (displayWords[i][j] != " ") {                
+                alert("noMatch");             
+            }
+            ++letterPos;
+            if (displayWords[i][j] === " ") {
+                checkPos = j + 1;
+                letterPos = 1;   
+                j = displayWords[i].length;                    
             }
         }
-    }
+    }    
 }    
  
 
