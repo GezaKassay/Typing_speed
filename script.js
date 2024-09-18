@@ -8,15 +8,18 @@ const words = [["color gift eat"], ["color gift eat pain popular average possibl
 
 let displayWords = words[0];
 let text = displayWords[0];
+let spannedText;
 
-function spanText(text) {    
-    return "<span class=char>" +
-        text.split("").join("<\/span><span class=char>") + "<\/span>";
+function spanText(text) {   
+    let characters = text.split("");
+    let num = 0;   
+    spannedText = characters.map(char => `<span id="${++num}">${char}</span>`).join("");
+    return spannedText;
 }
 
 function displaysWords() {
-    document.getElementById("wordsToDisplay").innerHTML = spanText(text);   
-   // document.getElementById("wordsToDisplay").innerHTML = displayWords; 
+    document.getElementById("wordsToDisplay").textContent = spanText(text);  
+    //textContent
 }
 displaysWords();
 
@@ -27,19 +30,16 @@ function setCharAt(str, index, chr) {
 
 let checkPos = 0;
 let letterPos = 0;
+let charClass = 0;
 const element = document.querySelector('#wordsToDisplay');
                  
 function checkDisplayedtoTyped() {
-    let word = document.getElementById("typeWords").value;
-    //spanText(word);
-    //document.getElementById("test").textContent = spanText(word);       
+    let word = document.getElementById("typeWords").value;         
     for (let i = 0; i <  displayWords.length; ++i) {                      
         for (let j = checkPos; j < displayWords[i].length; ++j) {                                          
             if (word[letterPos] === displayWords[i][j]) {              
                 alert("match");
-                document.getElementsByClassName("char").className = "green";                            
-               // displayWords[i] = setCharAt(displayWords[i], j,
-               //     '<span style="color: red;">c</span>');                                                
+                document.getElementById("1").classList.add("green");                                        
                 displaysWords();                               
             } else if (displayWords[i][j] != " ") {                
                alert("noMatch");
