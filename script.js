@@ -31,7 +31,6 @@ function setCharAt(str, index, chr) {
 let checkPos = 0;
 let letterPos = 0;
 let charClass = 0;
-const element = document.querySelector('#wordsToDisplay');
                  
 function checkDisplayedtoTyped() {
     let word = document.getElementById("typeWords").value;         
@@ -39,8 +38,9 @@ function checkDisplayedtoTyped() {
         for (let j = checkPos; j < displayWords[i].length; ++j) {                                          
             if (word[letterPos] === displayWords[i][j]) {              
                 alert("match");
-                document.getElementById("1").classList.add("green");                                        
-                displaysWords();                               
+                let geth1 = document.getElementById("wordsToDisplay");
+                geth1.getElementById("1").classList.add("green");                                        
+                //displaysWords();                               
             } else if (displayWords[i][j] != " ") {                
                alert("noMatch");
                            
