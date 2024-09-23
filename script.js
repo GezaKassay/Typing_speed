@@ -6,7 +6,7 @@ const words = [["color gift eat"], ["color gift eat pain popular average possibl
     "section spot bless"], ["resignation stress smell conceive remark charter" +
     " dead hotdog habitat courtship"]]
 
-let displayWords = words[0];
+let displayWords = words[1];
 let text = displayWords[0];
 let spannedText;
 
@@ -18,43 +18,43 @@ function spanText(text) {
 }
 
 function displaysWords() {
-    document.getElementById("wordsToDisplay").textContent = spanText(text);  
-    //textContent
+    document.getElementById("wordsToDisplay").innerHTML = spanText(text); 
 }
 displaysWords();
 
-function setCharAt(str, index, chr) {
-    if (index > str.length - 1) return str;    
-    return str.substring(0, index) + chr + str.substring(index + 1);
+let elmID = 0;
+
+function changeToGreen() {
+    document.getElementById(++elmID).classList.add("green"); 
+}
+
+function changeToRed() {
+    document.getElementById(++elmID).classList.add("red"); 
 }
 
 let checkPos = 0;
 let letterPos = 0;
-let charClass = 0;
                  
 function checkDisplayedtoTyped() {
     let word = document.getElementById("typeWords").value;         
     for (let i = 0; i <  displayWords.length; ++i) {                      
         for (let j = checkPos; j < displayWords[i].length; ++j) {                                          
-            if (word[letterPos] === displayWords[i][j]) {              
-                alert("match");
-                let geth1 = document.getElementById("wordsToDisplay");
-                geth1.getElementById("1").classList.add("green");                                        
-                //displaysWords();                               
-            } else if (displayWords[i][j] != " ") {                
-               alert("noMatch");
-                           
+            if (word[letterPos] === displayWords[i][j]) {                                                              
+                changeToGreen();                               
+            } else if (displayWords[i][j] != " ") {                        
+               changeToRed();                           
             }            
             ++letterPos;
             if (displayWords[i][j] === " ") {
                 checkPos = j + 1;
                 letterPos = 1;   
-                j = displayWords[i].length;                    
+                j = displayWords[i].length;
+                ++elmID;                    
             }
         }
     }    
 }    
- 
+
 
 window.addEventListener("keydown", function (checkWord) {         
     if (checkWord.code === "Space") { 
