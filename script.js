@@ -17,9 +17,9 @@ function changeDisplayWords() {
 }
 changeDisplayWords();
 
+let characters; 
 let spannedText;
 let num = 0;
-let characters; 
 
 function spanText(text) {   
     characters = text.split("");      
