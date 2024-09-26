@@ -1,28 +1,28 @@
 const DELAY_TIME = 1000;
 const TEN = 10;
-
-const words = [["color gift eat pain popular average possible tube retain" + 
-    " digress"], ["incongruous stunning excess revenge banner fortune user " +
-    "site harass criminal"], ["snarl facility distribute tray ice speed rib " +
-    "section spot bless"], ["resignation stress smell conceive remark charter" +
-    " dead hotdog habitat courtship"], ["month pat boom legislature stand face" +
-    " embox experienced urge slot"]];
+const WORDS = ["color gift eat pain popular average possible tube retain digress"
+    , "incongruous stunning excess revenge banner fortune user site harass " + 
+    "criminal", "snarl facility distribute tray ice speed rib section spot bless"
+    , "resignation stress smell conceive remark charter dead hotdog habitat " + 
+    "courtship", "month pat boom legislature stand face embox experienced urge" + 
+    " slot"];
 
 let displayWords;
 let wordsPos = -1;
 let text;
 
 function changeDisplayWords() {
-    displayWords = words[++wordsPos]; 
-    text = displayWords[0];          
+    displayWords = WORDS[++wordsPos]; 
+    text = displayWords;          
 }
 changeDisplayWords();
 
 let spannedText;
-let num = 0; 
+let num = 0;
+let characters; 
 
 function spanText(text) {   
-    let characters = text.split("");      
+    characters = text.split("");      
     spannedText = characters.map(char => `<span id="${++num}">${char}`+
         `</span>`).join("");
     return spannedText;
@@ -47,28 +47,27 @@ let checkPos = 0;
 let letterPos = 0;
 let correctWords = 0;
 let incorrectWords = 0;
+let match = 0;
+let noMatch = 0;
+let word; 
                  
-function checkWord() {
-    let word = document.getElementById("typeWords").value;
-    let match = 0;
-    let noMatch = 0;         
-    for (let i = 0; i <  displayWords.length; ++i) {                             
-        for (let j = checkPos; j < displayWords[i].length; ++j) {              
-            if (word[letterPos] === displayWords[i][j]) {                                                              
-                changeToGreen();
-                ++match;                               
-            } else if (displayWords[i][j] != " ") {                        
-               changeToRed();
-               ++noMatch;                                    
-            }            
-            ++letterPos;
-            if (displayWords[i][j] === " ") {
-                checkPos = j + 1;
-                letterPos = 1;   
-                j = displayWords[i].length;                    
-                ++elmID;                    
-            }            
-        }        
+function checkWord() { 
+    word = document.getElementById("typeWords").value;           
+    for (let i = checkPos; i <  displayWords.length; ++i) {                                         
+        if (word[letterPos] === displayWords[i]) {                                                              
+            changeToGreen();
+            ++match;                               
+        } else if (displayWords[i] != " ") {                        
+           changeToRed();
+           ++noMatch;                                    
+        }            
+        ++letterPos;
+        if (displayWords[i] === " ") {
+            checkPos = i + 1;
+            letterPos = 1;   
+            i = displayWords.length;                    
+            ++elmID;                    
+        }                   
     } 
     if (noMatch > 0) {
         ++incorrectWords;
