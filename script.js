@@ -11,78 +11,74 @@ let displayWords;
 let wordsPos = -1;
 let text;
 
-function changeDisplayWords() {
+function wordsToDisplay() {
     displayWords = WORDS[++wordsPos]; 
     text = displayWords;          
 }
-changeDisplayWords();
+wordsToDisplay();
 
-let characters; 
-let spannedText;
-let num = 0;
+let spanId = 0;
 
-function spanText(text) {   
-    characters = text.split("");      
-    spannedText = characters.map(char => `<span id="${++num}">${char}`+
+function addSpantoChar(text) {   
+    let characters = text.split("");      
+    let spannedText = characters.map(char => `<span id="${++spanId}">${char}`+
         `</span>`).join("");
     return spannedText;
 }
 
 function displaysWords() {
-    document.getElementById("wordsToDisplay").innerHTML = spanText(text); 
+    document.getElementById("wordsToDisplay").innerHTML = addSpantoChar(text); 
 }
 displaysWords();
 
-let elmID = 0;
-
-function changeToGreen() {
-    document.getElementById(++elmID).classList.add("green"); 
-}
-
-function changeToRed() {
-    document.getElementById(++elmID).classList.add("red"); 
-}
-
+let elementId = 0;
 let checkPos = 0;
 let letterPos = 0;
 let correctWords = 0;
 let incorrectWords = 0;
-let match = 0;
-let noMatch = 0;
-let word; 
+let notMatching = 0;
+let color; 
                  
 function checkWord() { 
-    word = document.getElementById("typeWords").value;           
+    let word = document.getElementById("typeWords").value;           
     for (let i = checkPos; i <  displayWords.length; ++i) {                                         
         if (word[letterPos] === displayWords[i]) {                                                              
-            changeToGreen();
-            ++match;                               
+            color = "green";
+            changeColor();                                          
         } else if (displayWords[i] != " ") {                        
-           changeToRed();
-           ++noMatch;                                    
+            color = "red";
+            changeColor();
+            ++notMatching;                                    
         }            
         ++letterPos;
         if (displayWords[i] === " ") {
             checkPos = i + 1;
             letterPos = 1;   
             i = displayWords.length;                    
-            ++elmID;                    
+            ++elementId;                    
         }                   
     } 
-    if (noMatch > 0) {
+    if (notMatching > 0) {
         ++incorrectWords;
     } else {
         ++correctWords;
-    }    
-    match = 0;
-    noMatch = 0; 
+    }   
+    notMatching = 0;
+    displayNextSetWords();
+}
+
+function changeColor() {
+    document.getElementById(++elementId).classList.add(color);     
+}
+
+function displayNextSetWords() {
     if ((correctWords + incorrectWords)  % TEN === 0) {
-        changeDisplayWords();
+        wordsToDisplay();
         displaysWords();
         letterPos = 1;
         checkPos = 0;           
-    }     
-}    
+    }  
+}
 
 let keyPressInstance = 0;
 
