@@ -41,7 +41,7 @@ let color;
                  
 function checkWord() { 
     let word = document.getElementById("typeWords").value;           
-    for (let i = checkPos; i <  displayWords.length; ++i) {                                         
+    for (let i = checkPos; i < displayWords.length; ++i) {                                         
         if (word[letterPos] === displayWords[i]) {                                                              
             color = "green";
             changeColor();                                          
@@ -72,7 +72,7 @@ function changeColor() {
 }
 
 function displayNextSetWords() {
-    if ((correctWords + incorrectWords)  % TEN === 0) {
+    if ((correctWords + incorrectWords) % TEN === 0) {
         wordsToDisplay();
         displaysWords();
         letterPos = 1;
@@ -87,7 +87,7 @@ window.addEventListener("keydown", function (key) {
         checkWord();        
         document.getElementById("typeWords").value = "";              
     }
-    if (keyPressInstance == 0) {
+    if (keyPressInstance === 0) {
         startTimer(); 
         ++keyPressInstance;
     }       
